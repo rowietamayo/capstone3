@@ -1,34 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react"
+import { Container } from "react-bootstrap"
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
+import AppNavbar from "./components/AppNavbar"
+import { UserProvider } from "./context/UserContext"
+import Login from "./pages/Login"
+import ProductCatalog from "./pages/ProductCatalog"
+import Register from "./pages/Registration"
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [user, setUser] = useState({ id: null, isAdmin: null })
+
+  useEffect(() => {
+    fetch("http://localhost:4001/b1/users/details", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data) {
+          setUser({ id: data._id, isAdmin: data.isAdmin })
+        } else {
+          setUser({ id: null, isAdmin: null })
+        }
+      })
+  }, [])
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <UserProvider value={{ user, setUser }}>
+      <Router>
+        <AppNavbar />
+        <Container>
+          <Routes>
+            <Route path="/products" element={<ProductCatalog />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+          </Routes>
+        </Container>
+      </Router>
+    </UserProvider>
   )
 }
 
