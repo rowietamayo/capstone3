@@ -10,7 +10,7 @@ export default function Home() {
   }
 
   return (
-    <div className="container d-flex align-items-center text-center mt-5">
+    <div>
       <Banner data={data} />
     </div>
   )
