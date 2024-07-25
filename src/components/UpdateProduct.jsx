@@ -9,6 +9,7 @@ export default function UpdateProduct({ product, onSuccess }) {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [price, setPrice] = useState("")
+  const [url, setUrl] = useState("")
   const [showUpdate, setShowUpdate] = useState(false)
 
   const updateProduct = (e) => {
@@ -19,9 +20,14 @@ export default function UpdateProduct({ product, onSuccess }) {
         "Content-Type": "application/json",
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
-      body: JSON.stringify({ name, description, price }),
+      body: JSON.stringify({ name, description, price, url }),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Network response was not ok")
+        }
+        return res.json()
+      })
       .then((data) => {
         const isSuccess = data.message === "product updated successfully"
         Swal.fire({
@@ -35,12 +41,21 @@ export default function UpdateProduct({ product, onSuccess }) {
           handleCloseUpdate()
         }
       })
+      .catch((error) => {
+        Swal.fire({
+          title: "Error!",
+          icon: "error",
+          text: "Network error. Please try again",
+        })
+        console.error("There was an error updating the product:", error)
+      })
   }
 
   const handleShowUpdate = () => {
     setName(product.name)
     setDescription(product.description)
     setPrice(product.price)
+    setUrl(product.url)
     setShowUpdate(true)
   }
 
@@ -48,6 +63,7 @@ export default function UpdateProduct({ product, onSuccess }) {
     setName("")
     setDescription("")
     setPrice("")
+    setUrl("")
     setShowUpdate(false)
   }
 
@@ -63,6 +79,15 @@ export default function UpdateProduct({ product, onSuccess }) {
             <Modal.Title>Update Product</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            <Form.Group controlId="productUrl">
+              <Form.Label>Url</Form.Label>
+              <Form.Control
+                type="text"
+                required
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+              />
+            </Form.Group>
             <Form.Group controlId="productName">
               <Form.Label>Name</Form.Label>
               <Form.Control
@@ -111,6 +136,7 @@ UpdateProduct.propTypes = {
     name: PropTypes.string.isRequired,
     description: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
+    url: PropTypes.string.isRequired,
   }).isRequired,
-  onSuccess: PropTypes.func,
+  onSuccess: PropTypes.func.isRequired,
 }
