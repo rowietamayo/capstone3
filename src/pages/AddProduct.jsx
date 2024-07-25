@@ -7,7 +7,7 @@ import UserContext from "../context/UserContext"
 export default function AddProduct() {
   const navigate = useNavigate()
   const { user } = useContext(UserContext)
-
+  const [url, setUrl] = useState("")
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
   const [price, setPrice] = useState("")
@@ -25,6 +25,7 @@ export default function AddProduct() {
           Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify({
+          url: url,
           name: name,
           description: description,
           price: price,
@@ -33,7 +34,7 @@ export default function AddProduct() {
 
       const data = await response.json()
 
-      console.log(data) // Log the full response
+      console.log(data)
 
       if (data.message === "Product already exists") {
         Swal.fire({
@@ -74,6 +75,17 @@ export default function AddProduct() {
     <>
       <h1 className="my-5 text-center">Add Product</h1>
       <Form onSubmit={addProduct}>
+        <Form.Group>
+          <Form.Label>URL</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter URL"
+            required
+            value={url}
+            onChange={(e) => setUrl(e.target.value)}
+          />
+        </Form.Group>
+
         <Form.Group>
           <Form.Label>Name:</Form.Label>
           <Form.Control

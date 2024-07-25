@@ -25,7 +25,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          setUser({ id: data._id, isAdmin: data.isAdmin })
+          setUser({ id: data.user._id, isAdmin: data.user.isAdmin })
         } else {
           setUser({ id: null, isAdmin: null })
         }

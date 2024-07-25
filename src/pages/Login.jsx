@@ -67,8 +67,6 @@ export default function Login() {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data)
-
         setUser({
           id: data.user._id,
           isAdmin: data.user.isAdmin,
@@ -94,6 +92,7 @@ export default function Login() {
           <Form.Group className="p-3">
             <Form.Label>Email address</Form.Label>
             <Form.Control
+              name="email"
               type="email"
               placeholder="Enter email"
               required
@@ -105,6 +104,7 @@ export default function Login() {
           <Form.Group className="mx-3 mb-4">
             <Form.Label>Password</Form.Label>
             <Form.Control
+              name="password"
               type="password"
               placeholder="Password"
               required

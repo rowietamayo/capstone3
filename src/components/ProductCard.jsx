@@ -5,13 +5,20 @@ import { Link } from "react-router-dom"
 export default function ProductCard({ product }) {
   if (!product) return null
 
-  const { _id, name, description, price } = product
+  const { _id, url, name, price } = product
 
   return (
-    <Card className="w-100 mb-4">
-      <Card.Body>
-        <Card.Title>{name}</Card.Title>
-        <Card.Text>{description}</Card.Text>
+    <Card className="w-100 h-100 mb-4">
+      <Card.Body className="d-flex flex-column align-items-center">
+        <img
+          alt="image"
+          src={url}
+          width="150px"
+          height="200px"
+          className="text-center "
+        />
+        <Card.Title className="mb-auto mt-2">{name}</Card.Title>
+
         <Card.Text className="text-danger">₱{price}</Card.Text>
       </Card.Body>
       <Card.Footer className="text-muted">
@@ -26,8 +33,8 @@ export default function ProductCard({ product }) {
 ProductCard.propTypes = {
   product: PropTypes.shape({
     _id: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
-    description: PropTypes.string.isRequired,
     price: PropTypes.number.isRequired,
   }).isRequired,
 }

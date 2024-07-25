@@ -4,7 +4,6 @@ import Nav from "react-bootstrap/Nav"
 import Navbar from "react-bootstrap/Navbar"
 import { Link, NavLink } from "react-router-dom"
 import UserContext from "../context/UserContext"
-import logo from "../image/logo.png"
 
 export default function AppNavbar() {
   const { user } = useContext(UserContext)
@@ -15,7 +14,7 @@ export default function AppNavbar() {
         <Navbar.Brand as={Link} to="/">
           <img
             alt=""
-            src={logo}
+            src={"/image/logo.png"}
             width="30"
             height="30"
             className="d-inline-block align-top"
@@ -32,6 +31,11 @@ export default function AppNavbar() {
               Products
             </Nav.Link>
 
+            {user && user.isAdmin && (
+              <Nav.Link as={NavLink} to="/admin" exact="true">
+                Admin
+              </Nav.Link>
+            )}
             {user && user.id ? (
               <Nav.Link as={NavLink} to="/logout" exact="true">
                 Logout

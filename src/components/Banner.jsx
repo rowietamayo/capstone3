@@ -11,7 +11,7 @@ export default function Banner({ data }) {
         <Col>
           <img
             alt="reading"
-            src={"src/image/read.svg"}
+            src={"/image/read.svg"}
             width="600px"
             height="600px"
             className="d-flex-start position-absolute"
