@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react"
 import { Container } from "react-bootstrap"
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
+import {
+  Navigate,
+  Route,
+  BrowserRouter as Router,
+  Routes,
+} from "react-router-dom"
 import AdminDashboard from "./components/AdminDashboard"
 import AppNavbar from "./components/AppNavbar"
 import { UserProvider } from "./context/UserContext"
@@ -43,7 +48,16 @@ function App() {
             <Route path="/product" element={<ProductCatalog />} />
             <Route path="/addProduct" element={<AddProduct />} />
             <Route path="/products/:productId" element={<ProductDetails />} />
-            <Route path="/admin" element={<AdminDashboard />} />
+            <Route
+              path="/admin"
+              element={
+                user && user.isAdmin ? (
+                  <AdminDashboard />
+                ) : (
+                  <Navigate to="/login" />
+                )
+              }
+            />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
             <Route path="/logout" element={<Logout />} />
