@@ -1,10 +1,16 @@
 import { useEffect, useState } from "react"
 import { Container } from "react-bootstrap"
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom"
+import AdminDashboard from "./components/AdminDashboard"
 import AppNavbar from "./components/AppNavbar"
 import { UserProvider } from "./context/UserContext"
+import AddProduct from "./pages/AddProduct"
+import Error from "./pages/Error"
+import Home from "./pages/Home"
 import Login from "./pages/Login"
+import Logout from "./pages/Logout"
 import ProductCatalog from "./pages/ProductCatalog"
+import ProductDetails from "./pages/ProductDetails"
 import Register from "./pages/Registration"
 
 function App() {
@@ -32,9 +38,15 @@ function App() {
         <AppNavbar />
         <Container>
           <Routes>
-            <Route path="/products" element={<ProductCatalog />} />
+            <Route path="*" element={<Error />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/product" element={<ProductCatalog />} />
+            <Route path="/addProduct" element={<AddProduct />} />
+            <Route path="/products/:productId" element={<ProductDetails />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="/register" element={<Register />} />
             <Route path="/login" element={<Login />} />
+            <Route path="/logout" element={<Logout />} />
           </Routes>
         </Container>
       </Router>

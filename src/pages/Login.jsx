@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState } from "react"
 import { Button, Card, CardFooter, Form } from "react-bootstrap"
-import { Link, Navigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 import Swal from "sweetalert2"
 
 import UserContext from "../context/UserContext"
 
 export default function Login() {
+  const navigate = useNavigate()
   const { user, setUser } = useContext(UserContext)
 
   const [email, setEmail] = useState("")
@@ -69,9 +70,11 @@ export default function Login() {
         console.log(data)
 
         setUser({
-          id: data._id,
-          isAdmin: data.isAdmin,
+          id: data.user._id,
+          isAdmin: data.user.isAdmin,
         })
+
+        navigate({ pathname: data.user.isAdmin ? "/admin" : "/product" })
       })
   }
 
@@ -83,9 +86,7 @@ export default function Login() {
     }
   }, [email, password])
 
-  return user.id !== null && user.id !== undefined ? (
-    <Navigate to="/ProductCatalog" />
-  ) : (
+  return (
     <Form onSubmit={(e) => authenticate(e)}>
       <h1 className="my-5 text-center">Login</h1>
       <Card>

@@ -20,18 +20,24 @@ export default function AppNavbar() {
             <Nav.Link as={NavLink} to="/" exact="true">
               Home
             </Nav.Link>
-            <Nav.Link as={NavLink} to="/products" exact="true">
+            <Nav.Link as={NavLink} to="/product" exact="true">
               Products
             </Nav.Link>
 
-            <>
-              <Nav.Link as={NavLink} to="/login" exact="true">
-                Login
+            {user && user.id ? (
+              <Nav.Link as={NavLink} to="/logout" exact="true">
+                Logout
               </Nav.Link>
-              <Nav.Link as={NavLink} to="/register" exact="true">
-                Register
-              </Nav.Link>
-            </>
+            ) : (
+              <>
+                <Nav.Link as={NavLink} to="/login" exact="true">
+                  Login
+                </Nav.Link>
+                <Nav.Link as={NavLink} to="/register" exact="true">
+                  Register
+                </Nav.Link>
+              </>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Container>
