@@ -4,6 +4,7 @@ import Nav from "react-bootstrap/Nav"
 import Navbar from "react-bootstrap/Navbar"
 import { Link, NavLink } from "react-router-dom"
 import UserContext from "../context/UserContext"
+import logo from "../image/logo.png"
 
 export default function AppNavbar() {
   const { user } = useContext(UserContext)
@@ -12,6 +13,13 @@ export default function AppNavbar() {
     <Navbar expand="lg" className="bg-body-tertiary">
       <Container>
         <Navbar.Brand as={Link} to="/">
+          <img
+            alt=""
+            src={logo}
+            width="30"
+            height="30"
+            className="d-inline-block align-top"
+          />{" "}
           Capstone 3
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

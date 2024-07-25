@@ -88,42 +88,44 @@ export default function Login() {
 
   return (
     <Form onSubmit={(e) => authenticate(e)}>
-      <h1 className="my-5 text-center">Login</h1>
-      <Card>
-        <Form.Group className="p-3">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control
-            type="email"
-            placeholder="Enter email"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </Form.Group>
+      <h1 className="my-4 text-center">Login</h1>
+      <div className="form-wrapper">
+        <Card className="w-100">
+          <Form.Group className="p-3">
+            <Form.Label>Email address</Form.Label>
+            <Form.Control
+              type="email"
+              placeholder="Enter email"
+              required
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+          </Form.Group>
 
-        <Form.Group className="mx-3 mb-4">
-          <Form.Label>Password</Form.Label>
-          <Form.Control
-            type="password"
-            placeholder="Password"
-            required
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </Form.Group>
+          <Form.Group className="mx-3 mb-4">
+            <Form.Label>Password</Form.Label>
+            <Form.Control
+              type="password"
+              placeholder="Password"
+              required
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </Form.Group>
 
-        <CardFooter className="text-muted">
-          <Button
-            className="w-100"
-            variant={isActive ? "primary" : "danger"}
-            type="submit"
-            id="loginBtn"
-            disabled={!isActive}
-          >
-            Login
-          </Button>
-        </CardFooter>
-      </Card>
+          <CardFooter className="text-muted">
+            <Button
+              className="w-100"
+              variant={isActive ? "primary" : "danger"}
+              type="submit"
+              id="loginBtn"
+              disabled={!isActive}
+            >
+              Login
+            </Button>
+          </CardFooter>
+        </Card>
+      </div>
       <p className="text-center mt-3">
         Don&apos;t have an account yet? <Link to="/register">Click here</Link>{" "}
         to register.

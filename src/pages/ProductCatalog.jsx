@@ -44,7 +44,7 @@ export default function Products() {
 
   return (
     <div>
-      <h1 className="text-center my-5">Our Products</h1>
+      <h1 className="text-center my-4">Our Products</h1>
       <Stack direction="horizontal" gap={4}>
         <Container fluid>
           <Row>
