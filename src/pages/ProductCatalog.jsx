@@ -1,45 +1,46 @@
-import { useContext, useEffect, useState } from "react"
-import { Col, Container, Row, Stack } from "react-bootstrap"
-import ProductCard from "../components/ProductCard"
-import UserContext from "../context/UserContext"
+// pages/ProductCatalog.jsx
+import { useContext, useEffect, useState } from "react";
+import { Col, Container, Row, Stack } from "react-bootstrap";
+import ProductCard from "../components/ProductCard";
+import UserContext from "../context/UserContext";
 
 export default function Products() {
-  const { user } = useContext(UserContext)
-  const [products, setProducts] = useState([])
+  const { user } = useContext(UserContext);
+  const [products, setProducts] = useState([]);
 
   const fetchData = async () => {
     try {
-      let fetchUrl =
+      const fetchUrl =
         user && user.isAdmin
           ? "http://localhost:4001/b1/products/all"
-          : "http://localhost:4001/b1/products/active"
+          : "http://localhost:4001/b1/products/active";
 
       const response = await fetch(fetchUrl, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-      })
+      });
 
       if (!response.ok) {
-        throw new Error("Failed to fetch products")
+        throw new Error("Failed to fetch products");
       }
 
-      const data = await response.json()
+      const data = await response.json();
       if (data.message === "No products found") {
-        setProducts([])
+        setProducts([]);
       } else {
-        setProducts(data.products)
+        setProducts(data.products);
       }
     } catch (error) {
-      console.error(error)
+      console.error(error);
     } finally {
-      console.log("fetchData finished")
+      console.log("fetchData finished");
     }
-  }
+  };
 
   useEffect(() => {
-    fetchData()
-  }, [user])
+    fetchData();
+  }, [user]);
 
   return (
     <div>
@@ -55,13 +56,13 @@ export default function Products() {
             }}
           >
             {products.map((product) => (
-              <Col className="text-center " key={product._id}>
-                <ProductCard product={product} mb={4} />
+              <Col className="text-center" key={product._id}>
+                <ProductCard product={product} />
               </Col>
             ))}
           </Row>
         </Container>
       </Stack>
     </div>
-  )
+  );
 }

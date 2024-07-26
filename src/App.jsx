@@ -5,6 +5,7 @@ import AdminDashboard from "./components/AdminDashboard"
 import AppNavbar from "./components/AppNavbar"
 import { UserProvider } from "./context/UserContext"
 import AddProduct from "./pages/AddProduct"
+import Cart from "./pages/Cart"
 import Error from "./pages/Error"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
@@ -25,7 +26,7 @@ function App() {
       .then((res) => res.json())
       .then((data) => {
         if (data) {
-          setUser({ id: data.user._id, isAdmin: data.user.isAdmin })
+          setUser({ id: data._id, isAdmin: data.isAdmin })
         } else {
           setUser({ id: null, isAdmin: null })
         }
@@ -41,6 +42,7 @@ function App() {
             <Route path="*" element={<Error />} />
             <Route path="/" element={<Home />} />
             <Route path="/product" element={<ProductCatalog />} />
+            <Route path="/cart" element={<Cart />} />
             <Route path="/addProduct" element={<AddProduct />} />
             <Route path="/products/:productId" element={<ProductDetails />} />
             <Route path="/admin" element={<AdminDashboard />} />

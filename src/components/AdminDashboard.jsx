@@ -45,6 +45,7 @@ export default function AdminDashboard() {
         <thead>
           <tr className="text-center">
             <th>ID</th>
+            <th>Book Cover</th>
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
@@ -56,19 +57,33 @@ export default function AdminDashboard() {
           {products.map((product) => (
             <tr key={product._id}>
               <td>{product._id}</td>
+              <td>
+                <img
+                  alt="image"
+                  src={product.url}
+                  width="150px"
+                  height="200px"
+                  className="text-center "
+                />
+              </td>
               <td>{product.name}</td>
               <td>{product.description}</td>
               <td>{product.price}</td>
               <td className={product.isActive ? "text-success" : "text-danger"}>
                 {product.isActive ? "Available" : "Unavailable"}
               </td>
-              <td className="text-center">
-                <UpdateProduct product={product} onSuccess={handleFetchData} />
-                <ArchiveProduct
-                  id={product._id}
-                  isActive={product.isActive}
-                  onSuccess={handleFetchData}
-                />
+              <td>
+                <div className="d-flex justify-content-between">
+                  <UpdateProduct
+                    product={product}
+                    onSuccess={handleFetchData}
+                  />
+                  <ArchiveProduct
+                    id={product._id}
+                    isActive={product.isActive}
+                    onSuccess={handleFetchData}
+                  />
+                </div>
               </td>
             </tr>
           ))}
