@@ -17,12 +17,20 @@ import Login from "./pages/Login"
 import Logout from "./pages/Logout"
 import ProductCatalog from "./pages/ProductCatalog"
 import ProductDetails from "./pages/ProductDetails"
+import Profile from "./pages/Profile"
 import Register from "./pages/Registration"
 
 function App() {
   const [user, setUser] = useState({ id: null, isAdmin: null })
 
   useEffect(() => {
+    const token = localStorage.getItem("token")
+
+    if (!token) {
+      setUser({ id: null, isAdmin: null })
+      return
+    }
+
     fetch("http://localhost:4001/b1/users/details", {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -30,14 +38,13 @@ function App() {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data) {
-          setUser({ id: data._id, isAdmin: data.isAdmin })
+        if (data && data.user) {
+          setUser({ id: data.user._id, isAdmin: data.user.isAdmin })
         } else {
           setUser({ id: null, isAdmin: null })
         }
       })
   }, [])
-
   return (
     <UserProvider value={{ user, setUser }}>
       <Router>
@@ -46,6 +53,7 @@ function App() {
           <Routes>
             <Route path="*" element={<Error />} />
             <Route path="/" element={<Home />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/product" element={<ProductCatalog />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/addProduct" element={<AddProduct />} />
