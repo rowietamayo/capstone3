@@ -10,7 +10,7 @@ import DeleteItemModal from "../components/DeleteItemModal";
 
 const GET_CART_URL = "http://localhost:4001/b1/cart/get-cart";
 const UPDATE_CART_URL = "http://localhost:4001/b1/cart/update-cart-quantity";
-const DELETE_CART_URL = "http://localhost:4001/b1/cart/remove-from-cart";
+const DELETE_CART_URL = "http://localhost:4001/b1/cart";
 const CLEAR_CART_URL = "http://localhost:4001/b1/cart/clear-cart";
 
 export default function CartPage() {
@@ -38,7 +38,7 @@ export default function CartPage() {
     console.log("Fetching cart for user:", user.id);
 
     try {
-      const response = await fetch(`${GET_CART_URL}/${user.id}`, {
+      const response = await fetch(`${GET_CART_URL}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -95,7 +95,7 @@ export default function CartPage() {
 
   const handleDeleteItem = async () => {
     try {
-      const response = await fetch(`${DELETE_CART_URL}/${itemIdToDelete}`, {
+      const response = await fetch(`${DELETE_CART_URL}/${itemIdToDelete}/remove-from-cart`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",

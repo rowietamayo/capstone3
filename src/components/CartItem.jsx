@@ -11,14 +11,14 @@ const CartItem = ({ cart, index, handleShowModal, handleShowDeleteModal, truncat
       <td>
         <img
           alt="image"
-          src={cart.productId?.url}
+          src={cart.url}
           width="120px"
           height="200px"
           className="text-center"
         />
       </td>
       <td>
-        {truncateDescription(cart.productId?.description, 100)}{" "}
+        {truncateDescription(cart.description, 100)}{" "}
         <Link to={`/products/${cart.productId?._id}`}>See More</Link>
       </td>
       <td className="text-center">&#x20B1; {cart.productId?.price || "N/A"}</td>
