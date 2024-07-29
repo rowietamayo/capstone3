@@ -10,10 +10,9 @@ export default function Products() {
 
   const fetchData = async () => {
     try {
-      const fetchUrl =
-        user && user.isAdmin
-          ? "http://localhost:4001/b1/products/all"
-          : "http://localhost:4001/b1/products/active"
+      const fetchUrl = `${import.meta.env.VITE_API_URL}/products/${
+        user && user.isAdmin ? "all" : "active"
+      }`
 
       const response = await fetch(fetchUrl, {
         headers: {
