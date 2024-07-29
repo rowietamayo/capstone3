@@ -15,6 +15,7 @@ import Error from "./pages/Error"
 import Home from "./pages/Home"
 import Login from "./pages/Login"
 import Logout from "./pages/Logout"
+import OrderHistory from "./pages/OrderHistory"
 import ProductCatalog from "./pages/ProductCatalog"
 import ProductDetails from "./pages/ProductDetails"
 import Profile from "./pages/Profile"
@@ -31,7 +32,7 @@ function App() {
       return
     }
 
-    fetch("http://localhost:4001/b1/users/details", {
+    fetch(`${import.meta.env.VITE_API_URL}/b1/users/details"`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
@@ -58,6 +59,7 @@ function App() {
             <Route path="/cart" element={<Cart />} />
             <Route path="/addProduct" element={<AddProduct />} />
             <Route path="/products/:productId" element={<ProductDetails />} />
+            <Route path="/history" element={<OrderHistory />} />
             <Route
               path="/admin"
               element={

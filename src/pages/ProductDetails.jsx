@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react"
-import { Button, Card, Col, Container, Modal, Row, Form } from "react-bootstrap"
+import { Button, Card, Col, Container, Form, Modal, Row } from "react-bootstrap"
 import { Link, useNavigate, useParams } from "react-router-dom"
 import Swal from "sweetalert2"
 import UserContext from "../context/UserContext"
@@ -14,7 +14,7 @@ export default function ProductDetails() {
   const [quantity, setQuantity] = useState(1)
 
   useEffect(() => {
-    fetch(`http://localhost:4001/b1/products/${productId}`)
+    fetch(`${import.meta.env.VITE_API_URL}/products/${productId}`)
       .then((res) => res.json())
       .then((data) => {
         if (data.product) {
@@ -49,18 +49,21 @@ export default function ProductDetails() {
     const token = localStorage.getItem("token")
 
     try {
-      const response = await fetch("http://localhost:4001/b1/cart/add-to-cart", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
-        body: JSON.stringify({
-          userId: user.id,
-          productId: product._id,
-          quantity: quantity,
-        }),
-      })
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/cart/add-to-cart`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            userId: user.id,
+            productId: product._id,
+            quantity: quantity,
+          }),
+        }
+      )
 
       const data = await response.json()
 
@@ -122,7 +125,11 @@ export default function ProductDetails() {
                   ₱{product.price}
                 </Card.Text>
                 {user && user.id ? (
-                  <Button variant="primary" block="true" onClick={handleAddToCart}>
+                  <Button
+                    variant="primary"
+                    block="true"
+                    onClick={handleAddToCart}
+                  >
                     Add to Cart
                   </Button>
                 ) : (

@@ -3,8 +3,6 @@ import { useState } from "react"
 import { Button, Form, Modal } from "react-bootstrap"
 import Swal from "sweetalert2"
 
-const PRODUCTS_URL = "http://localhost:4001/b1/products"
-
 export default function UpdateProduct({ product, onSuccess }) {
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
@@ -14,7 +12,7 @@ export default function UpdateProduct({ product, onSuccess }) {
 
   const updateProduct = (e) => {
     e.preventDefault()
-    fetch(`${PRODUCTS_URL}/${product._id}/update`, {
+    fetch(`${import.meta.env.VITE_API_URL}/products/${product._id}/update`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

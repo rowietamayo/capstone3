@@ -4,9 +4,8 @@ const UpdatePassword = () => {
   const [newPassword, setPassword] = useState("")
   const [confirmPassword, setConfirmPassword] = useState("")
   const [message, setMessage] = useState("")
-  const [messageType, setMessageType] = useState("") // "success" or "danger"
+  const [messageType, setMessageType] = useState("")
   const [isUpdated, setIsUpdated] = useState(false)
-  // State to track password update success
 
   const handleUpdatePassword = async (e) => {
     e.preventDefault()
@@ -20,7 +19,7 @@ const UpdatePassword = () => {
     try {
       const token = localStorage.getItem("token")
       const response = await fetch(
-        `http://localhost:4001/b1/users/update-password`,
+        `${import.meta.env.VITE_API_URL}/users/update-password`,
         {
           method: "PATCH",
           headers: {
@@ -32,10 +31,10 @@ const UpdatePassword = () => {
       )
 
       if (!response.ok) {
-        const text = await response.text() // Read the response as text
-        console.error("Error response:", text) // Log the HTML error response
+        const text = await response.text()
+        console.error("Error response:", text)
         try {
-          const errorData = JSON.parse(text) // Try to parse JSON if possible
+          const errorData = JSON.parse(text)
           setMessageType("danger")
           setMessage(
             errorData.message || "An error occurred. Please try again."
@@ -49,7 +48,7 @@ const UpdatePassword = () => {
         setMessage("Password updated successfully")
         setPassword("")
         setConfirmPassword("")
-        setIsUpdated(true) // Set the success state
+        setIsUpdated(true)
       }
     } catch (error) {
       setMessageType("danger")
@@ -72,7 +71,7 @@ const UpdatePassword = () => {
             value={newPassword}
             onChange={(e) => {
               setPassword(e.target.value)
-              setMessage("") // Clear message when user starts typing
+              setMessage("")
               setMessageType("")
             }}
             required
@@ -89,7 +88,7 @@ const UpdatePassword = () => {
             value={confirmPassword}
             onChange={(e) => {
               setConfirmPassword(e.target.value)
-              setMessage("") // Clear message when user starts typing
+              setMessage("")
               setMessageType("")
             }}
             required
