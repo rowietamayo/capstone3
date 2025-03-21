@@ -1,7 +1,13 @@
 import { useContext, useEffect, useState } from "react"
-import { Button, Card, CardFooter, Form } from "react-bootstrap"
+import {
+  Button,
+  Card,
+  CardFooter,
+  Form,
+  Image,
+  InputGroup,
+} from "react-bootstrap"
 import { Link, useNavigate } from "react-router-dom"
-
 import Swal from "sweetalert2"
 
 import UserContext from "../context/UserContext"
@@ -86,37 +92,54 @@ export default function Login() {
 
   return (
     <Form onSubmit={(e) => authenticate(e)}>
-      <h1 className="my-4 text-center">Login</h1>
-      <div className="form-wrapper">
-        <Card className="w-100">
+      <div className="form-wrapper mt-4">
+        <Card id="login-card">
           <Form.Group className="p-3">
-            <Form.Label>Email address</Form.Label>
-            <Form.Control
-              name="email"
-              type="email"
-              placeholder="Enter email"
-              required
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </Form.Group>
+            <p className=" text-start fs-5 title fw-bold ">Login</p>
+            <Form.Label htmlFor="form-email" className="mb-0">
+              Email address:
+            </Form.Label>
+            <InputGroup>
+              <InputGroup.Text>
+                <Image src="image/email.svg" id="form-image" />
+              </InputGroup.Text>
+              <Form.Control
+                name="email"
+                type="email"
+                placeholder="Enter email"
+                id="form-email"
+                required
+                value={email}
+                autoComplete="on"
+                onChange={(e) => setEmail(e.target.value)}
+              />
+            </InputGroup>
 
-          <Form.Group className="mx-3 mb-4">
-            <Form.Label>Password</Form.Label>
-            <Form.Control
-              name="password"
-              type="password"
-              placeholder="Password"
-              required
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            <Form.Group>
+              <Form.Label htmlFor="form-password" className="mt-2 mb-0">
+                Password:
+              </Form.Label>
+              <InputGroup>
+                <InputGroup.Text>
+                  <Image src="image/password.svg" id="form-image" />
+                </InputGroup.Text>
+                <Form.Control
+                  name="password"
+                  type="password"
+                  placeholder="Password"
+                  id="form-password"
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </InputGroup>
+            </Form.Group>
           </Form.Group>
 
           <CardFooter className="text-muted">
             <Button
               className="w-100"
-              variant={isActive ? "primary" : "danger"}
+              variant={isActive ? "primary" : "secondary"}
               type="submit"
               id="loginBtn"
               disabled={!isActive}
@@ -126,8 +149,20 @@ export default function Login() {
           </CardFooter>
         </Card>
       </div>
-      <p className="text-center mt-3">
-        Don&apos;t have an account yet? <Link to="/register">Click here</Link>{" "}
+      <p
+        className="text-center mt-1 "
+        style={{ textDecoration: "none", color: "#eee1c9" }}
+      >
+        Don&apos;t have an account yet?{" "}
+        <Link
+          to="/register"
+          style={{
+            color: "#eee1c9",
+            fontWeight: "bold",
+          }}
+        >
+          Click here
+        </Link>{" "}
         to register.
       </p>
     </Form>
