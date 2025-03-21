@@ -5,14 +5,45 @@
   box-sizing: border-box;
 }
 
-body {
-  background-color: #b5d6d6;
+@font-face {
+  font-family: "Wotham";
+  src: url(../public/font/Wotham.otf);
+}
+@font-face {
+  font-family: "Agatho_Regular";
+  src: url(../public/font/Agatho_Regular.otf);
 }
 
+body {
+  font-family: "EB Garamond", serif;
+  background: #71557a;
+}
+
+.title,
+#clickbtn {
+  color: #312535;
+}
+
+.glassmorphism {
+  background: rgba(255, 255, 255, 0.17);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(4.4px);
+  -webkit-backdrop-filter: blur(4.4px);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+#registration-card,
+#login-card {
+  background-color: #f2f2eb;
+}
+
+#form-image {
+  width: 20px;
+}
 .form-wrapper {
   max-width: 370px;
   margin: 0 auto;
-  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
+  box-shadow: rgba(50, 50, , 0.25) 0px 30px 60px -12px,
     rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
 }
 
@@ -28,4 +59,18 @@ body {
 .profile-wrapper {
   box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px,
     rgba(0, 0, 0, 0.3) 0px 18px 36px -18px;
+}
+
+.right-nav {
+  color: #eee1c9;
+}
+
+.right-nav:hover {
+  color: #312535;
+}
+
+@media (max-width: 768px) {
+  .signup {
+    display: none;
+  }
 }
