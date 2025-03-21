@@ -122,7 +122,7 @@ function Register() {
 
   return (
     <Row>
-      <Col md={6} className="d-flex justify-content-center ">
+      <Col md={6} className="d-flex justify-content-center mt-4">
         <Image
           alt="sign up"
           src={"/image/signup.svg"}
